@@ -47,14 +47,14 @@ public class CollectDependenciesSources implements DoesFileOperations {
 		fos.close();
 	}
 
-	private static StringBuffer gatherMavenDependencies(File workingDirectory) throws IOException {
+	private StringBuffer gatherMavenDependencies(File workingDirectory) throws IOException {
 		new File(workingDirectory.getAbsolutePath()+File.separator+"lib").mkdirs();
 		String[] mvnInstall = new String[] {"/usr/local/bin/mvn", "dependency:copy-dependencies", "-Dclassifier=sources", "-DoutputDirectory=lib"};
 		Process proc = new ProcessBuilder(mvnInstall).directory(workingDirectory).start();
 		return readProcessBuffer(proc);
 	}
 
-	private static StringBuffer readProcessBuffer(Process proc) throws IOException {
+	private StringBuffer readProcessBuffer(Process proc) throws IOException {
 		StringBuffer buff = new StringBuffer();
 		long duration = System.currentTimeMillis();
 		while(proc.isAlive() || proc.getInputStream().available()!=0) {
@@ -77,7 +77,7 @@ public class CollectDependenciesSources implements DoesFileOperations {
 		return buff;
 	}
 
-	private static void deleteRepo(File location) throws IOException {
+	private void deleteRepo(File location) throws IOException {
 		Files.walk(location.toPath())
 			.map(Path::toFile)
 			.sorted((o1, o2) -> -o1.compareTo(o2))
