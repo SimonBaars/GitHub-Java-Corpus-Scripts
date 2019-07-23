@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.simonbaars.clonerefactor.util.SavePaths;
+import com.simonbaars.githubjavacorpus.utils.SavePaths;
 
 public class PrepareProjectsFolder {
 	
