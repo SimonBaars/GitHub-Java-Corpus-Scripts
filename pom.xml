@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.simonbaars</groupId>
+	<artifactId>githubjavacorpus</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>githubjavacorpus</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jdk.version>1.8</jdk.version>
+		<junit.version>3.8.1</junit.version>
+		<progressbar.version>0.7.3</progressbar.version>
+		<vcs4j.version>1.6.0</vcs4j.version>
+		<jgit.version>5.3.1.201904271842-r</jgit.version>
+		<jfreechart.version>1.5.0</jfreechart.version>
+		<apachelang3.version>3.8.1</apachelang3.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>me.tongfei</groupId>
+			<artifactId>progressbar</artifactId>
+			<version>${progressbar.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.uni-bremen.informatik.st</groupId>
+			<artifactId>libvcs4j</artifactId>
+			<version>${vcs4j.version}</version>
+		</dependency>
+	</dependencies>
+</project>
