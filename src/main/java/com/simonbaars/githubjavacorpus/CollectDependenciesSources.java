@@ -9,17 +9,21 @@ import java.util.Arrays;
 
 import org.eclipse.jgit.api.Git;
 
-import com.simonbaars.clonerefactor.util.FileUtils;
-import com.simonbaars.clonerefactor.util.SavePaths;
+import com.simonbaars.githubjavacorpus.utils.DoesFileOperations;
+import com.simonbaars.githubjavacorpus.utils.SavePaths;
 
 import me.tongfei.progressbar.ProgressBar;
 
-public class CollectDependenciesSources {
+public class CollectDependenciesSources implements DoesFileOperations {
 
 	private static final int MAVEN_PROCESS_TIMEOUT = 60000;
 
 	public static void main(String[] args) throws IOException {
-		String file = FileUtils.getFileAsString(SavePaths.getApplicationDataFolder()+"filtered_projects.txt");
+		new CollectDependenciesSources().collectDependencySources();
+	}
+	
+	private void collectDependencySources() throws IOException{
+		String file = getFileAsString(SavePaths.getApplicationDataFolder()+"filtered_projects.txt");
 		FileOutputStream fos = new FileOutputStream(new File(SavePaths.getApplicationDataFolder()+"valid_projects_sources.txt"));
 		for(String s : ProgressBar.wrap(Arrays.asList(file.split("\n")), "Cloning Git Projects")) {
 			try {
