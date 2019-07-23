@@ -9,14 +9,21 @@ import java.util.Arrays;
 
 import org.eclipse.jgit.api.Git;
 
+import com.simonbaars.githubjavacorpus.utils.DoesFileOperations;
+import com.simonbaars.githubjavacorpus.utils.SavePaths;
+
 import me.tongfei.progressbar.ProgressBar;
 
-public class CollectDependencies {
+public class CollectDependencies implements DoesFileOperations {
 
 	private static final int MAVEN_PROCESS_TIMEOUT = 10000;
 
 	public static void main(String[] args) throws IOException {
-		String file = FileUtils.getFileAsString(SavePaths.getApplicationDataFolder()+"filtered_projects.txt");
+		new CollectDependencies().collectDependencies();
+	}
+	
+	private void collectDependencies() throws IOException {
+		String file = getFileAsString(SavePaths.getApplicationDataFolder()+"filtered_projects.txt");
 		FileOutputStream fos = new FileOutputStream(new File(SavePaths.getApplicationDataFolder()+"valid_projects.txt"));
 		for(String s : ProgressBar.wrap(Arrays.asList(file.split("\n")), "Cloning Git Projects")) {
 			try {
@@ -40,14 +47,14 @@ public class CollectDependencies {
 		fos.close();
 	}
 
-	private static StringBuffer gatherMavenDependencies(File workingDirectory) throws IOException {
+	private StringBuffer gatherMavenDependencies(File workingDirectory) throws IOException {
 		new File(workingDirectory.getAbsolutePath()+File.separator+"lib").mkdirs();
 		String[] mvnInstall = new String[] {"/usr/local/bin/mvn", "dependency:copy-dependencies", "-DoutputDirectory=lib"};
 		Process proc = new ProcessBuilder(mvnInstall).directory(workingDirectory).start();
 		return readProcessBuffer(proc);
 	}
 
-	private static StringBuffer readProcessBuffer(Process proc) throws IOException {
+	private StringBuffer readProcessBuffer(Process proc) throws IOException {
 		StringBuffer buff = new StringBuffer();
 		long duration = System.currentTimeMillis();
 		while(proc.isAlive() || proc.getInputStream().available()!=0) {
@@ -70,7 +77,7 @@ public class CollectDependencies {
 		return buff;
 	}
 
-	private static void deleteRepo(File location) throws IOException {
+	private void deleteRepo(File location) throws IOException {
 		Files.walk(location.toPath())
 			.map(Path::toFile)
 			.sorted((o1, o2) -> -o1.compareTo(o2))

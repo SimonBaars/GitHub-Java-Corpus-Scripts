@@ -13,6 +13,10 @@ public interface DoesFileOperations {
 	public default String getFileAsString(File file) throws IOException {
 		return new String(getFileBytes(file), StandardCharsets.UTF_8);
 	}
+	
+	public default String getFileAsString(String file) throws IOException {
+		return getFileAsString(new File(file));
+	}
 
 	public default byte[] getFileBytes(File file) throws IOException {
 		return Files.readAllBytes(file.toPath());
