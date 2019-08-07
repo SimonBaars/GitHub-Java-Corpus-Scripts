@@ -1,4 +1,4 @@
-package com.simonbaars.githubjavacorpus;
+	package com.simonbaars.githubjavacorpus;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -49,7 +49,7 @@ public class CollectDependencies implements DoesFileOperations {
 
 	private StringBuffer gatherMavenDependencies(File workingDirectory) throws IOException {
 		new File(workingDirectory.getAbsolutePath()+File.separator+"lib").mkdirs();
-		String[] mvnInstall = new String[] {"/usr/local/bin/mvn", "dependency:copy-dependencies", "-DoutputDirectory=lib"};
+		String[] mvnInstall = new String[] {"mvn", "dependency:copy-dependencies", "-DoutputDirectory=lib"};
 		Process proc = new ProcessBuilder(mvnInstall).directory(workingDirectory).start();
 		return readProcessBuffer(proc);
 	}
