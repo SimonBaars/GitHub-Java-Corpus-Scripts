@@ -5,14 +5,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
 
 import org.eclipse.jgit.api.Git;
 
 import com.simonbaars.githubjavacorpus.utils.DoesFileOperations;
 import com.simonbaars.githubjavacorpus.utils.SavePaths;
-
-import me.tongfei.progressbar.ProgressBar;
 
 public class CollectDependencies implements DoesFileOperations {
 
@@ -25,7 +22,9 @@ public class CollectDependencies implements DoesFileOperations {
 	private void collectDependencies() throws IOException {
 		String file = getFileAsString(SavePaths.getApplicationDataFolder()+"filtered_projects.txt");
 		FileOutputStream fos = new FileOutputStream(new File(SavePaths.getApplicationDataFolder()+"valid_projects.txt"));
-		for(String s : ProgressBar.wrap(Arrays.asList(file.split("\n")), "Cloning Git Projects")) {
+		String[] githubProjects = file.split("\n");
+		for(int i = 0; i<githubProjects.length; i++) {
+			String s = githubProjects[i];
 			try {
 				File location = new File(SavePaths.createDirectoryIfNotExists(SavePaths.getGitFolder()+s.substring(s.lastIndexOf('/')+1)));
 				Git git = Git.cloneRepository()
@@ -43,6 +42,7 @@ public class CollectDependencies implements DoesFileOperations {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			System.out.println(s+" ("+(i+1)+"/"+githubProjects.length+")");
 		}
 		fos.close();
 	}
