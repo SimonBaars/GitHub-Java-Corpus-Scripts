@@ -65,7 +65,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<mainClass>com.simonbaars.githubjavacorpus.CollectDependencies</mainClass>
+					<mainClass>com.simonbaars.githubjavacorpus.CollectDependenciesMultiThreaded</mainClass>
 				</configuration>
 			</plugin>
 			<plugin>
