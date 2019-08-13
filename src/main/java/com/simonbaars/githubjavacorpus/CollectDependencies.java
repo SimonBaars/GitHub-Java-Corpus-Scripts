@@ -16,7 +16,7 @@ import me.tongfei.progressbar.ProgressBar;
 
 public class CollectDependencies implements DoesFileOperations {
 
-	private static final int MAVEN_PROCESS_TIMEOUT = 10000;
+	private static final int MAVEN_PROCESS_TIMEOUT = 150000;
 
 	public static void main(String[] args) throws IOException {
 		new CollectDependencies().collectDependencies();
