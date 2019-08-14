@@ -20,6 +20,7 @@
 		<jgit.version>5.3.1.201904271842-r</jgit.version>
 		<jfreechart.version>1.5.0</jfreechart.version>
 		<apachelang3.version>3.8.1</apachelang3.version>
+		<javaparser.version>3.14.8</javaparser.version>
 	</properties>
 
 	<dependencies>
@@ -28,6 +29,11 @@
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.javaparser</groupId>
+			<artifactId>javaparser-symbol-solver-core</artifactId>
+			<version>${javaparser.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>me.tongfei</groupId>
