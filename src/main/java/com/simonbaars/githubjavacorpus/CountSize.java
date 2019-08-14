@@ -22,16 +22,19 @@ public class CountSize {
         AtomicInteger ordinal = new AtomicInteger(0);
         for(File f : corpusFiles) {
         	Path p = Paths.get(f+"/src/main/java/");
+        	int start = ordinal.get();
+        	AtomicInteger numberOfClasses = new AtomicInteger(0);
         	if(p.toFile().isDirectory()) {
 				new SourceRoot(Paths.get(f+"/src/main/java/")).parse("", config, (Path localPath, Path absolutePath, ParseResult<CompilationUnit> result) -> {
 					if(result.getResult().isPresent() && result.getResult().get().getRange().isPresent()) {
 						int size = result.getResult().get().getRange().get().end.line+1;
 						ordinal.addAndGet(size);
-						System.out.println(f.getName()+"\t"+size);
+						numberOfClasses.getAndIncrement();
 					}
 					return Result.DONT_SAVE;
 				});
         	}
+        	System.out.println(f.getName()+"\t"+(ordinal.get()-start)+"\t"+numberOfClasses.get());
         }
         System.out.println("Combined size = "+ordinal.get());
 	}
